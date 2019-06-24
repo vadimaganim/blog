@@ -25,7 +25,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+ gem 'bcrypt', '~> 3.1.7'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -38,6 +38,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
+gem 'will_paginate', '3.1.5'
+gem 'bootstrap-will_paginate', '1.0.0'
 # Jq
 gem 'jquery-rails'
 

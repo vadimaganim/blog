@@ -1,59 +1,60 @@
+# frozen_string_literal: true
+
 class ArticlesController < ApplicationController
+  before_action :set_article, only: %i[edit update show destroy]
 
-before_action :set_article, only: [:edit, :update, :show, :destroy]
+  def new
+    @article = Article.new
+    end
 
-	def new
-	  @article = Article.new
-	end
-
-	def create
-  @article = Article.new(article_params)
-	@article.user = User.first
-  if @article.save
-   flash[:success] = "Article was successfully created"
-   redirect_to article_path(@article)
-  else
-   render 'new'
+  def create
+    @article = Article.new(article_params)
+    @article.user = User.first
+    if @article.save
+      flash[:success] = 'Article was successfully created'
+      redirect_to article_path(@article)
+    else
+      render 'new'
+    end
   end
- end
 
-	def show
-	  set_article
-	end
+  def show
+    set_article
+    end
 
-	def edit
-	 set_article
-	end
+  def edit
+    set_article
+    end
 
-	def update
-	 set_article
-	  if @article.update(article_params)
-	flash[:success] = "Article was updated"
-	redirect_to article_path(@article)
-	  else
-	   flash[:success] = "Article was not updated"
-	   render "edit"
-	 end
-	end
+  def update
+    set_article
+    if @article.update(article_params)
+      flash[:success] = 'Article was updated'
+      redirect_to article_path(@article)
+    else
+      flash[:success] = 'Article was not updated'
+      render 'edit'
+   end
+    end
 
-	def index
-	  @articles = Article.all
-	end
+  def index
+    @articles = Article.paginate(page: params[:page], per_page: 5)
+    end
 
-	def destroy
-   set_article
-   @article.destroy
-   flash[:success] = "Article was deleted"
-   redirect_to articles_path
- end
+  def destroy
+    set_article
+    @article.destroy
+    flash[:success] = 'Article was deleted'
+    redirect_to articles_path
+  end
 
-	private
-	 def article_params
-	   params.require(:article).permit(:title, :description)
-	 end
+  private
 
-	 def set_article
-	    @article = Article.find(params[:id])
-	 end
+  def article_params
+    params.require(:article).permit(:title, :description)
+     end
 
+  def set_article
+    @article = Article.find(params[:id])
+     end
 end
